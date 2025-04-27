@@ -1,0 +1,111 @@
+[{
+    "summary": "Sam requests a 15-30 minute meeting with Josh later this week at Jimmy V's Sports Caf\u00e9 or a Zoom call.",
+    "responses": [
+      {
+        "intention": "Enthusiastic and agreeable",
+        "email": "Hi Sam,\n\nThat sounds great! I'm available on Thursday afternoon at 3 pm. Let's meet at Jimmy V's Sports Caf\u00e9 then. Looking forward to catching up.\n\nBest,\nJosh"
+      },
+      {
+        "intention": "Polite but non-committal",
+        "email": "Hi Sam,\n\nThank you for reaching out. I'll have to check my schedule and get back to you on the best time to meet up. I'll let you know as soon as I can.\n\nBest,\nJosh"
+      },
+      {
+        "intention": "Curious and probing",
+        "email": "Hi Sam,\n\nI'd be happy to chat. What's the purpose of the meeting? I want to make sure it's a good use of both our time. Let me know the details and I'll do my best to accommodate.\n\nBest,\nJosh"
+      },
+      {
+        "intention": "Regretful and unavailable",
+        "email": "Hi Sam,\n\nUnfortunately, I'm quite busy this week and don't have any availability for a meeting. Perhaps we could schedule something for next week? I apologize for the inconvenience.\n\nBest,\nJosh"
+      }
+    ],
+    "full_email": "\n\nHi Josh,\n\nLet me know if you have some time to chat later this week \u2013 we can meet for 15-30 mins at Jimmy V\u2019s Sports Caf\u00e9 or hop on a zoom call.\n\nBest,\nSam\n"
+  },
+  {
+    "summary": "Jess responded at [day/time] about Joshua's program sheet.",
+    "responses": [
+      {
+        "intention": "Appreciative and responsive",
+        "email": "Hi Jess,\n\nThank you for the feedback on my program sheet. I have updated the units for CS194W and have submitted the revised version to the Smartsheet form. Please let me know if you need any additional information from me.\n\nBest,\nJoshua"
+      },
+      {
+        "intention": "Clarifying and proactive",
+        "email": "Hi Jess,\n\nThank you for reviewing my program sheet. I wanted to clarify the units for CS194W - could you please provide more details on the specific information you need? I want to make sure I include everything accurately in the updated version.\n\nLooking forward to hearing back from you.\n\nBest,\nJoshua"
+      },
+      {
+        "intention": "Polite and inquisitive",
+        "email": "Hi Jess,\n\nI appreciate you taking the time to review my program sheet. Could you please provide more context on the units for CS194W that need to be listed? I want to make sure I understand the requirement fully before submitting the updated version.\n\nThank you in advance for your assistance.\n\nBest,\nJoshua"
+      },
+      {
+        "intention": "Formal and direct",
+        "email": "Dear Jess,\n\nThank you for your feedback on my program sheet. I have updated the requested information and have resubmitted the revised version to the Smartsheet form.\n\nPlease let me know if you require any additional details from me.\n\nSincerely,\nJoshua"
+      }
+    ],
+    "full_email": "\n\nHi Joshua,\n\nThank you for submitting your program sheet! I have reviewed your plans and listed my feedback below:\n\n    Please list the units for CS194W\n\n\nWhen you have the availability, send the updated version of your program sheet that reflects these changes to our Smartsheet form. If you have any questions, feel free to reach out!\n\n\n\nBest,\nJess\n"
+  },
+  {
+    "summary": "Katie Li invites the team to confirm the 4 members of their team who will be participating in the hackathon this Saturday.",
+    "response": [
+      {
+        "intention": "Cooperative and thankful",
+        "email": "Hi Katie,\n\nThank you for the invitation to the hackathon this Saturday. We have confirmed that the 4 members of our team who will be participating are [Member 1], [Member 2], [Member 3], and [Member 4].\n\nWe appreciate your understanding and look forward to the event.\n\nBest regards,\n[Your Name]"
+      },
+      {
+        "intention": "Clarifying and apologetic",
+        "email": "Hi Katie,\n\nThank you for reaching out about the hackathon team size. We apologize for the oversight in our application, and we understand the need to maintain fairness for all participants. Could you please confirm if there is any flexibility in the team size limit, or if we need to adjust our team accordingly?\n\nWe're excited to participate and want to ensure we're complying with the event guidelines. Please let us know how we can best move forward.\n\nThank you,\n[Your Name]"
+      },
+      {
+        "intention": "Disappointed but understanding",
+        "email": "Hi Katie,\n\nThank you for the invitation to the hackathon. We appreciate your understanding, but unfortunately, we will not be able to participate with only 4 team members. We had hoped to include all 5 of our team members, as they have been working collaboratively on this project.\n\nWe understand the need to maintain fairness for all teams, and we respect the event guidelines. Perhaps we can explore options for participating in a future hackathon with our full team.\n\nThank you for your consideration,\n[Your Name]"
+      },
+      {
+        "intention": "Enthusiastic and solution-oriented",
+        "email": "Hi Katie,\n\nThank you for the invitation to the hackathon this Saturday. We're thrilled to participate and are excited to see what we can build.\n\nWe've confirmed that the 4 members of our team who will be attending are [Member 1], [Member 2], [Member 3], and [Member 4]. We're confident that this team will work together seamlessly to create something great.\n\nPlease let us know if there's anything else we can do to ensure a smooth and successful event. We're looking forward to it!\n\nBest regards,\n[Your Name]"
+      }
+    ],
+    "full_email": "\n\nHi team,\n\nThanks all for your interest in the hackathon this Saturday, we're really excited to see what you build!\n\n+Albert for visibility. We noticed that your team may include 5 people, but your application only has 4 members. We'd love for all of you to participate, but we capped teams at 4 members and to keep things fair for the other teams, we're unable to make any exceptions. Who are the 4 members on your team who will be participating?\n\n\n\n\t\nKatie Li\n"
+  },
+  {
+    "summary": "Liam plans to meet Josh at their office at 10:30 AM on Tuesday, April 8th or Thursday, April 10th.",
+    "responses": [
+      {
+        "intention": "Friendly and confirming",
+        "email": "Hi Liam,\n\nThank you for the confirmation. I will plan to come by on Thursday, April 10th at 10:30 AM. I look forward to seeing you then.\n\nBest,\nJosh"
+      },
+      {
+        "intention": "Clarifying and polite",
+        "email": "Hi Liam,\n\nThank you for reaching out. To clarify, I will plan to visit your office on Thursday, April 10th at 10:30 AM. Please let me know if this works for you.\n\nKind regards,\nJosh"
+      },
+      {
+        "intention": "Appreciative and flexible",
+        "email": "Hi Liam,\n\nThank you for the follow-up. Either Tuesday, April 8th or Thursday, April 10th at 10:30 AM works for me. I appreciate you ensuring I can meet with you during my visit. Please let me know which day is better for you.\n\nSincerely,\nJosh"
+      },
+      {
+        "intention": "Brief and confirmatory",
+        "email": "Hi Liam,\n\nThursday, April 10th at 10:30 AM works for me. I'll see you then.\n\nBest,\nJosh"
+      }
+    ],
+    "full_email": "\nHi Josh,\n\n \n\nJust to confirm (since I made a mistake in my email), are you planning to come by next Tuesday (4/8) or Thursday (4/10) at 1030am? Sorry for the confusion, but I want to make sure I\u2019m in my office when you stop by!\n\nYrs,\nLP\n"
+  },
+  {
+    "summary": "The sender invites Josh to a meeting next Tuesday at 10:30 am in their office at Encina 421.",
+    "responses": [
+      {
+        "intention": "Enthusiastic acceptance",
+        "email": "Dear LP,\n\nI'm delighted to hear from you and would love to meet next Tuesday at 10:30 am in your office at Encina 421. Thank you for the invitation, and I look forward to our chat.\n\nBest regards,\nJosh"
+      },
+      {
+        "intention": "Polite reschedule",
+        "email": "Dear LP,\n\nThank you for the invitation to meet next Tuesday at 10:30 am. Unfortunately, I have a prior commitment that day and won't be able to make it. Would it be possible to reschedule for another time that week? I'm very interested in continuing our conversation and look forward to finding a mutually convenient time.\n\nBest regards,\nJosh"
+      },
+      {
+        "intention": "Clarification request",
+        "email": "Dear LP,\n\nThank you for the invitation to meet next Tuesday at 10:30 am in your office at Encina 421. Before I confirm, could you please provide a bit more context about the purpose of our meeting? I want to ensure I'm prepared to have a productive discussion.\n\nI appreciate your time, and I look forward to hearing back from you.\n\nBest regards,\nJosh"
+      },
+      {
+        "intention": "Casual confirmation",
+        "email": "Hey LP,\n\nThanks for reaching out. 10:30 am next Tuesday at your office in Encina 421 works great for me. I'm looking forward to our chat.\n\nCatch you then,\nJosh"
+      }
+    ],
+    "full_email": "\n\n\nDear Josh,\n\n \n\nThanks very much for coming, for your kind words, and for your interest in talking more. I\u2019d love to chat with you. This week is packed for me, but about next Tuesdays (4/10) at 10:30 am. Would that work for you? And yes, let\u2019s meet in my office at Encina 421.\n\n \n\nLooking forward to it,\n\nLP\n\n"
+  }]
+

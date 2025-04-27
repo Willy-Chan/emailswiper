@@ -1,8 +1,27 @@
 import React, { useState } from 'react';
 import { ScrollView, View, Text, StyleSheet, TouchableOpacity, TextInput } from 'react-native';
+// Firebase imports
+import { initializeApp } from 'firebase/app';
+import { getFirestore, collection, addDoc } from 'firebase/firestore';
+import { useNavigation } from '@react-navigation/native';
+// Firebase config (same as Main.js)
+const firebaseConfig = {
+  apiKey: "AIzaSyCqFkBZ2hUHAMreFtE0LSC9nV1SVDSMAkI",
+  authDomain: "willyml-41614.firebaseapp.com",
+  projectId: "willyml-41614",
+  storageBucket: "willyml-41614.firebasestorage.app",
+  messagingSenderId: "335741101614",
+  appId: "1:335741101614:web:59249721ac748fa3c2e1bf",
+  measurementId: "G-7CE8VF5GL0"
+};
+const appFirebase = initializeApp(firebaseConfig);
+const db = getFirestore(appFirebase);
 
 export default function ResponseScreen({ route }) {
-  const { response, summary } = route.params;
+  const { response, summary, email_id, onGoBack } = route.params;
+  const navigation = useNavigation();
+
+  console.log(email_id)
   const [message, setMessage] = useState(response);
   const [ccTags, setCcTags] = useState([]);
   const [ccInput, setCcInput] = useState('');
@@ -10,6 +29,21 @@ export default function ResponseScreen({ route }) {
   const [bccInput, setBccInput] = useState('');
   const addCcTag = () => { if (ccInput.trim()) { setCcTags([...ccTags, ccInput.trim()]); setCcInput(''); } };
   const addBccTag = () => { if (bccInput.trim()) { setBccTags([...bccTags, bccInput.trim()]); setBccInput(''); } };
+  // Handler to send response to Firestore
+  const handleSend = async () => {
+    try {
+      await addDoc(collection(db, 'collection2'), {
+        email_id,
+        response: message,
+      });
+      console.log('Response saved');
+      // Call archive callback then pop back
+      if (onGoBack) onGoBack(email_id);
+      navigation.goBack();
+    } catch (err) {
+      console.error('Error saving response:', err);
+    }
+  };
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -58,7 +92,7 @@ export default function ResponseScreen({ route }) {
         onChangeText={setMessage}
         multiline
       />
-      <TouchableOpacity style={styles.sendButton}>
+      <TouchableOpacity style={styles.sendButton} onPress={handleSend}>
         <Text style={styles.sendButtonText}>Send</Text>
       </TouchableOpacity>
     </ScrollView>

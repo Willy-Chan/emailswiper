@@ -1,29 +1,84 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { View, Text, StyleSheet, Image, Dimensions, Button, TouchableOpacity } from 'react-native';
 import Swiper from 'react-native-deck-swiper';
 
+// Firebase imports
+import { initializeApp } from 'firebase/app';
+import { getFirestore, doc, getDoc } from 'firebase/firestore';
+
 const { width, height } = Dimensions.get('window');
 
-const cards = [
-  { id: 1, summarytext: 'Willy is asking if you would be free to meet next Saturday at 8PM for dinner.', fulltext: 'SUPER LONG TEXT SHIT HERE', text: '🍕 Pizza', uri: 'https://placekitten.com/400/600' },
-  { id: 2, summarytext: 'Willy is asking if you would be free to meet next Saturday at 8PM for dinner.', fulltext: 'SUPER LONG TEXT SHIT HERE', text: '🍣 Sushi', uri: 'https://placekitten.com/401/600' },
-  { id: 3, summarytext: 'Willy is asking if you would be free to meet next Saturday at 8PM for dinner.', fulltext: 'SUPER LONG TEXT SHIT HERE', text: '🍣 Sushi', uri: 'https://placekitten.com/401/600' },
-  { id: 4, summarytext: 'Willy is asking if you would be free to meet next Saturday at 8PM for dinner.', fulltext: 'SUPER LONG TEXT SHIT HERE', text: '🍣 Sushi', uri: 'https://placekitten.com/401/600' },
-  { id: 5, summarytext: 'Willy is asking if you would be free to meet next Saturday at 8PM for dinner.', fulltext: 'SUPER LONG TEXT SHIT HERE', text: '🍣 Sushi', uri: 'https://placekitten.com/401/600' },
-  { id: 6, summarytext: 'Willy is asking if you would be free to meet next Saturday at 8PM for dinner.', fulltext: 'SUPER LONG TEXT SHIT HERE', text: '🍣 Sushi', uri: 'https://placekitten.com/401/600' },
-];
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyCqFkBZ2hUHAMreFtE0LSC9nV1SVDSMAkI",
+  authDomain: "willyml-41614.firebaseapp.com",
+  projectId: "willyml-41614",
+  storageBucket: "willyml-41614.firebasestorage.app",
+  messagingSenderId: "335741101614",
+  appId: "1:335741101614:web:59249721ac748fa3c2e1bf",
+  measurementId: "G-7CE8VF5GL0"
+};
 
 export default function Main({ navigation }) {
   const swiperRef = useRef(null);
-  const responses = [
-    'Sounds good, see you then!',
-    "Sorry, I can't make it.",
-    "Sorry, I can't make it.",
-    "Sorry, I can't make it.",
-    "Sorry, I can't make it."
-  ];
-
+  const [cards, setCards] = useState([]);
   const [swipedAll, setSwipedAll] = useState(false);
+  const handleArchive = id => setCards(prev => prev.filter(card => card.email_id !== id));
+
+  useEffect(() => {
+    // Initialize Firebase app with web config
+    const appFirebase = initializeApp(firebaseConfig);
+    const db = getFirestore(appFirebase);
+    // Fetch specific Firestore document and map into cards
+    const fetchDocField = async () => {
+      try {
+        const docRef = doc(db, 'collection', 'document');
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          const data = docSnap.data();
+          // Parse the JSON string stored in 'field'
+          let parsed;
+          try {
+            parsed = JSON.parse(data.field);
+          } catch (e) {
+            console.error('Invalid JSON:', e);
+            return;
+          }
+          // Validate and map results
+          const resultsArray = Array.isArray(parsed.results) ? parsed.results : null;
+          if (!resultsArray) {
+            console.error('Parsed JSON missing results array', parsed);
+            return;
+          }
+          if (resultsArray.length === 0) {
+            console.log("No results to display");
+            return;
+          }
+          setCards(
+            resultsArray.map((item, idx) => ({
+              id: idx + 1,
+              email_id: item.email_id,
+              summarytext: item.summary,
+              fulltext: item.full_email,
+              uri: item.uri || null,
+              responses: Array.isArray(item.responses)
+                ? item.responses.map(resp => ({
+                    email: resp.email,
+                    intention: resp.intention_tone || resp['intention_tone'] || '',
+                  }))
+                : [],
+            }))
+          );
+        } else {
+          console.log('No document found!');
+        }
+      } catch (err) {
+        console.error('Error fetching document:', err);
+      }
+    };
+    fetchDocField();
+  }, []);
 
   // When all cards are gone, set flag
   const handleSwipedAll = () => {
@@ -47,6 +102,15 @@ export default function Main({ navigation }) {
     );
   }
 
+  // Wait until cards are loaded
+  if (cards.length === 0) {
+    return (
+      <View style={styles.container}>
+        <Text>Loading emails…</Text>
+      </View>
+    );
+  }
+
   return (
     <View style={styles.container}>
       <Swiper
@@ -64,13 +128,13 @@ export default function Main({ navigation }) {
               <Text style={styles.summaryofemailtext}>{card.summarytext}</Text>
             </TouchableOpacity>
             <View style={styles.responseContainer}>
-              {responses.map((resp, i) => (
+              {card.responses.map((resp, i) => (
                 <View key={i} style={styles.responseBlock}>
                   <TouchableOpacity
-                    onPress={() => navigation.navigate('Response', { response: resp, summary: card.summarytext })}
+                    onPress={() => navigation.navigate('Response', { response: resp.email, summary: card.summarytext, email_id: card.email_id, onGoBack: handleArchive })}
                     style={styles.responseButton}
                   >
-                    <Text style={styles.responseButtonText}>{resp}</Text>
+                    <Text style={styles.responseButtonText}>{resp.intention}</Text>
                   </TouchableOpacity>
                 </View>
               ))}
@@ -102,7 +166,7 @@ export default function Main({ navigation }) {
             }
           },
           right: {
-            title: 'SHOW ME TOMORROW',
+            title: 'SNOOZE FOR 1 HOUR',
             style: {
               label: { color: 'white', fontSize: 48 },
               wrapper: {

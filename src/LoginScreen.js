@@ -3,20 +3,19 @@ import { View, Text, Button, StyleSheet } from 'react-native';
 import * as AuthSession from 'expo-auth-session';
 import { useNavigation } from '@react-navigation/native';
 
-// Azure AD / Microsoft Graph OAuth via expo-auth-session
-const CLIENT_ID = '6090dc45-e40b-40a2-8a7f-a79c74ab6594';
-const TENANT_ID = 'common';
+// Google OAuth2 settings
+const CLIENT_ID = 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com'; // TODO: Replace with your client id
 const REDIRECT_URI = AuthSession.makeRedirectUri({ useProxy: true });
+
 console.log('Redirect URI:', REDIRECT_URI);
-const SCOPES = ['openid', 'profile', 'Mail.Read'];
+const SCOPES = ['https://www.googleapis.com/auth/gmail.readonly', 'email', 'profile', 'openid'];
 
 const discovery = {
-  authorizationEndpoint: `https://login.microsoftonline.com/${TENANT_ID}/oauth2/v2.0/authorize`,
-  tokenEndpoint: `https://login.microsoftonline.com/${TENANT_ID}/oauth2/v2.0/token`,
+  authorizationEndpoint: 'https://accounts.google.com/o/oauth2/v2/auth',
+  tokenEndpoint: 'https://oauth2.googleapis.com/token',
 };
 
 export default function LoginScreen() {
-
   const navigation = useNavigation();
   const [request, response, promptAsync] = AuthSession.useAuthRequest(
     {
@@ -29,16 +28,24 @@ export default function LoginScreen() {
   );
 
   useEffect(() => {
-    console.log('Auth response:', response);
     if (response?.type === 'success') {
       const token = response.params.access_token;
-      console.log('Access token:', token);
-      fetch('https://graph.microsoft.com/v1.0/me/messages?$top=5', {
+      fetch('https://gmail.googleapis.com/gmail/v1/users/me/messages?maxResults=5', {
         headers: { Authorization: `Bearer ${token}` },
       })
         .then(res => res.json())
-        .then(json => {
-          console.log('Fetched mails:', json.value);
+        .then(async json => {
+          if (json.messages && json.messages.length > 0) {
+            // Fetch the details for each message
+            const details = await Promise.all(json.messages.map(msg =>
+              fetch(`https://gmail.googleapis.com/gmail/v1/users/me/messages/${msg.id}?format=metadata`, {
+                headers: { Authorization: `Bearer ${token}` },
+              }).then(r => r.json())
+            ));
+            console.log('First 5 emails:', details);
+          } else {
+            console.log('No emails found.');
+          }
           navigation.replace('Main');
         })
         .catch(err => console.log('Fetch error:', err));
@@ -49,12 +56,12 @@ export default function LoginScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Login with Outlook</Text>
+      <Text style={styles.title}>Login with Gmail</Text>
       <Button
-        title="Sign In"
+        title="Sign In with Google"
         disabled={!request}
         onPress={() => {
-          console.log('Prompting auth...');
+          console.log('Prompting Google OAuth...');
           promptAsync({ useProxy: true });
         }}
       />
