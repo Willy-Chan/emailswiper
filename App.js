@@ -21,7 +21,7 @@ export default function App() {
           <Stack.Screen name="Response" component={ResponseScreen} options={({ navigation }) => ({
             title: 'Response',
             headerLeft: () => (
-              <TouchableOpacity onPress={() => navigation.goBack()} style={{ marginLeft: 15 }}>
+              <TouchableOpacity onPress={() => navigation.goBack()} style={{ marginLeft: 15, paddingVertical: 15,  paddingHorizontal: 15, }}>
                 <Text>Back</Text>
               </TouchableOpacity>
             ),
@@ -29,7 +29,7 @@ export default function App() {
           <Stack.Screen name="Summary" component={SummaryScreen} options={({ navigation }) => ({
             title: 'Summary',
             headerLeft: () => (
-              <TouchableOpacity onPress={() => navigation.goBack()} style={{ marginLeft: 15 }}>
+              <TouchableOpacity onPress={() => navigation.goBack()} style={{ marginLeft: 15, paddingVertical: 15,  paddingHorizontal: 15, }}>
                 <Text>Back</Text>
               </TouchableOpacity>
             ),

@@ -166,7 +166,7 @@ export default function Main({ navigation }) {
             }
           },
           right: {
-            title: 'SNOOZE FOR 1 HOUR',
+            title: 'SNOOZE UNTIL TOMORROW',
             style: {
               label: { color: 'white', fontSize: 48 },
               wrapper: {

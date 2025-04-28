@@ -35,6 +35,8 @@ export default function ResponseScreen({ route }) {
       await addDoc(collection(db, 'collection2'), {
         email_id,
         response: message,
+        status: unsent,  //to distinguish between sent and unsent on email side
+        //ideally, later some way to view archived vs snoozed vs sent in app
       });
       console.log('Response saved');
       // Call archive callback then pop back
